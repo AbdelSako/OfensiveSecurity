@@ -234,13 +234,6 @@ def handle_file(FILE):
 			print "[-] NO SUCH FILE"
 			print END
 			exit(0)
-	
-		#if getuid() != 0:
-		#	if getpwuid(stat(FILE).st_uid).pw_name != getlogin():
-		#		print "[-] YOU MUST BE \"root\" OR THE OWNER OF THE FILE YOU WANT TO UPLOAD"
-		#		print END
-		#		exit(0)
-
 
 def sftp_open():
 	try:                                                             # DEFINING THE "sftp" variable and OPENING SFTP A CONNECTION TO THE REMOTE SERVER
@@ -312,7 +305,7 @@ if __name__ == "__main__" :
 			print END
 			exit(0)
 		s.connect((sw.host, sw.port))
-	except socket_error:
+	except (socket_error,  KeyboardInterrupt):
 		print "[-] HOST NOT FOUND: ",sw.host,":",sw.port
 		print "[-] VERIFY IF ",sw.host,"IS ACTIVE, AND MAKE SURE AN SSH SERVER IS RUNNING AND ALLOWING TRAFFIC ON PORT ",sw.port
 		print END
