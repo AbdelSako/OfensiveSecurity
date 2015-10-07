@@ -1,5 +1,5 @@
 # Athor: Abdel Sako
-# Profesion: Linux Engineer
+# Profession: Linux Engineer
 
 #!/usr/bin/env python
 from paramiko import SSHClient, Channel, SFTPClient, AutoAddPolicy, SSHException, AuthenticationException, transport
